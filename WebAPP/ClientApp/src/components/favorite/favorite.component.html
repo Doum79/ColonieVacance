@@ -1,0 +1,34 @@
+﻿<div class="favorites_container">
+    <div class="favorites_header_container">
+        <div class="header_title" (click)="switchCategory('STAYS')" [ngClass]="{'stays_title--selected': selectedCategory == 'STAYS'}">
+            Séjours
+        </div>
+        <div class="header_title" (click)="switchCategory('STRUCTURES')" [ngClass]="{'structures_title--selected': selectedCategory == 'STRUCTURES'}">
+            Structures
+        </div>
+    </div>
+
+    <div *ngIf="selectedCategory == 'STAYS'" class="favorite_list_container">
+        <ng-container *ngFor="let stay of favoriteStays; let i = index;">
+            <div class="stay_container" [ngClass]="{'stay_no_margin_right': i%5 == 0, 'stay_no_margin_left': i == 0 || (i+1)%6 == 0}">
+                <div class="title">{{stay.name}}</div>
+                <div class="description">{{stay.abstract}}</div>
+                <div class="date">{{stay.startDate | date:'dd/MM/yyyy'}} - {{stay.endDate | date:'dd/MM/yyyy'}}</div>
+                <div class="open" (click)="openStay(stay)">Voir la suite ...</div>
+                <mat-icon (click)="removeStayToFavorite(stay.id)">favorite</mat-icon>
+            </div>
+        </ng-container>
+    </div>
+
+    <div *ngIf="selectedCategory == 'STRUCTURES'" class="favorite_structures_list">
+        <ng-container *ngFor="let structure of favoriteStructures; let i = index;">
+            <div class="favorite_structures_container" [ngClass]="{'stay_no_margin_right': i%5 == 0, 'stay_no_margin_left': i == 0 || (i+1)%6 == 0}">
+                <div class="title">{{structure.email}}</div>
+                <!--<div class="description">{{stay.abstract}}</div>
+                <div class="date">{{stay.startDate | date:'dd/MM/yyyy'}} - {{stay.endDate | date:'dd/MM/yyyy'}}</div>
+                <div class="open" (click)="openStay(stay)">Voir la suite ...</div>-->
+                <mat-icon (click)="removeStructureToFavorite(structure.id)">favorite</mat-icon>
+            </div>
+        </ng-container>
+    </div>
+</div>

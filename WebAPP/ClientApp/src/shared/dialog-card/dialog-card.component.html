@@ -1,0 +1,940 @@
+﻿<div class="card_container">
+
+    <ng-container *ngIf="data.item == 'Authentification'">
+        <div class="card_title">Authentification</div>
+
+        <div class="card_wrapper">
+
+            <div class="card_label">Votre profil :</div>
+
+            <mat-radio-group [(ngModel)]="data.connexion.profil">
+                <mat-radio-button [value]="true">Un parent</mat-radio-button>
+                <mat-radio-button [value]="false">Une structure</mat-radio-button>
+            </mat-radio-group>
+
+            <ng-container *ngIf="data.connexion.profil != null">
+                <form>
+                    <mat-form-field>
+                        <input [(ngModel)]="data.connexion.email" matInput placeholder="Email"
+                            [formControl]="emailFormControl">
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Email <strong>requis</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="data.connexion.password" type="password" matInput placeholder="Mot de passe"
+                            [formControl]="passwordFormControl">
+                        <mat-error *ngIf="passwordFormControl.hasError('required')">
+                            Mot de passe <strong>requis</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="btn_container">
+                        <button type="submit" mat-raised-button color="primary" (click)="onClose()">Connexion</button>
+                        <button type="button" mat-raised-button color="accent">Mot de passe oublié ?</button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="data.item == 'UpdateParent'">
+        <div class="card_title">Modification les informations</div>
+
+        <div class="card_wrapper">
+
+            <ng-container>
+                <form>
+
+                    <div class="row_double">
+                        <mat-form-field>
+                            <input [(ngModel)]="data.currentUser.firstName" matInput placeholder="Prénom"
+                                [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input [(ngModel)]="data.currentUser.lastName" matInput placeholder="Nom"
+                                [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="data.currentUser.email" matInput placeholder="Email"
+                            [formControl]="emailFormControl">
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Entrer un email <strong>valide</strong>
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Email <strong>requis</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <label id="gender-label">Civilité</label>
+                    <mat-radio-group aria-labelledby="gender-label" class="example-radio-group"
+                        [(ngModel)]="data.currentUser.gender" [ngModelOptions]="{standalone: true}">
+                        <mat-radio-button [value]="true">Homme</mat-radio-button>
+                        <mat-radio-button [value]="false">Femme</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="data.currentUser.street" matInput placeholder="Rue"
+                            [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                    <div class="row_double">
+                        <mat-form-field>
+                            <input [(ngModel)]="data.currentUser.city" matInput placeholder="Ville"
+                                [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input type="number" [(ngModel)]="data.currentUser.zipCode" matInput
+                                placeholder="Code Postal" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="data.currentUser.phoneNumber" matInput
+                            placeholder="Téléphone mobile" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                    <div class="btn_container">
+                        <button type="submit" mat-raised-button color="primary" (click)="onClose()">Modifier</button>
+                        <button type="button" mat-raised-button color="accent" (click)="closeDialog()">Fermer</button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="data.item == 'UpdateStructure'">
+        <div class="card_title">Modification les informations</div>
+
+        <div class="card_wrapper">
+
+            <ng-container>
+                <form>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="data.currentStructure.email" matInput placeholder="Email"
+                            [formControl]="emailFormControl">
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Entrer un email <strong>valide</strong>
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Email <strong>requis</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="data.currentStructure.street" matInput placeholder="Rue"
+                            [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                    <div class="row_double">
+                        <mat-form-field>
+                            <input [(ngModel)]="data.currentStructure.city" matInput placeholder="Ville"
+                                [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input type="number" [(ngModel)]="data.currentStructure.zipCode" matInput
+                                placeholder="Code Postal" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="data.currentStructure.phoneNumber" matInput
+                            placeholder="Téléphone mobile" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                    <div class="btn_container">
+                        <button type="submit" mat-raised-button color="primary" (click)="onClose()">Modifier</button>
+                        <button type="button" mat-raised-button color="accent" (click)="closeDialog()">Fermer</button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="data.item == 'NewStay'">
+        <div class="card_title">{{data.stay.id ? 'Modification du séjour' : 'Nouveau séjour'}}</div>
+
+        <div class="card_wrapper">
+            <mat-horizontal-stepper #stepper>
+                <mat-step [stepControl]="activityFirstFormGroup">
+                    <form [formGroup]="activityFirstFormGroup">
+                        <ng-template matStepLabel>Informations principales</ng-template>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.name" type="text" matInput placeholder="Nom*"
+                                    formControlName="stayNameFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayNameFormControle').hasError('required')">
+                                    Nom de séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <textarea [(ngModel)]="data.stay.abstract" type="text" matInput placeholder="Résumé*"
+                                    formControlName="stayAbstractFormControle"></textarea>
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayAbstractFormControle').hasError('required')">
+                                    Résumé du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <textarea [(ngModel)]="data.stay.description" type="text" matInput
+                                    placeholder="Description*" formControlName="stayDescirptionFormControle"></textarea>
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayDescirptionFormControle').hasError('required')">
+                                    Description du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_fourth">
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="startPicker" placeholder="Date de début*"
+                                    [(ngModel)]="data.stay.startDate" formControlName="stayStartDateFormControle">
+                                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startPicker></mat-datepicker>
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayStartDateFormControle').hasError('required')">
+                                    Date de début du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="endPicker" placeholder="Date de fin*"
+                                    [(ngModel)]="data.stay.endDate" formControlName="stayEndDateFormControle">
+                                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endPicker></mat-datepicker>
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayEndDateFormControle').hasError('required')">
+                                    Date de fin du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.minYear" type="number" matInput
+                                    placeholder="Age minimum" formControlName="stayMinYearFormControle">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.maxYear" type="number" matInput
+                                    placeholder="Age maximum" formControlName="stayMaxYearFormControle">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.nbPlaces" type="number" matInput
+                                    placeholder="Nombre de places" formControlName="stayNbPlacesFormControle">
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field>
+                            <textarea [(ngModel)]="data.stay.otherInformations" type="text" matInput
+                                placeholder="Autres informations"
+                                formControlName="stayOtherInformationsFormControle"></textarea>
+                        </mat-form-field>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.price" type="number" matInput
+                                    placeholder="Prix de départ*" formControlName="stayPriceFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayPriceFormControle').hasError('required')">
+                                    Prix de départ <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.praticLevel" type="text" matInput
+                                    placeholder="Niveau de pratique" formControlName="stayPraticLeveltFormControle">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="step_button_container">
+                            <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="activityFirstFormGroup">
+                    <form [formGroup]="activityFirstFormGroup">
+                        <ng-template matStepLabel>Localisation</ng-template>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.street" type="text" matInput placeholder="Rue*"
+                                    formControlName="stayStreetFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayStreetFormControle').hasError('required')">
+                                    Rue du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.city" type="text" matInput placeholder="Ville*"
+                                    formControlName="stayCityFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayCityFormControle').hasError('required')">
+                                    Ville du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.zipCode" type="number" matInput placeholder="Code postal*"
+                                    formControlName="stayZipCodeFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayZipCodeFormControle').hasError('required')">
+                                    Code postal du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input [(ngModel)]="data.stay.country" type="text" matInput placeholder="Pays*"
+                                    formControlName="stayCountryFormControle">
+                                <mat-error
+                                    *ngIf="activityFirstFormGroup.get('stayCountryFormControle').hasError('required')">
+                                    Pays du séjour <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="step_button_container">
+                            <button mat-raised-button matStepperPrevious style="margin-right: 2rem;">Retour</button>
+                            <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <form>
+                        <ng-template matStepLabel>Activités</ng-template>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Activités..." #activityInput [formControl]="activityCtrl"
+                                [matAutocomplete]="activityAuto">
+                            <mat-autocomplete autoActiveFirstOption #activityAuto="matAutocomplete"
+                                (optionSelected)="selectedActivity($event)">
+                                <mat-option *ngFor="let activity of filteredActivities | async"
+                                    [value]="activity.label">
+                                    {{activity.label}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                        <div>
+                            <ng-container *ngFor="let activity of activitiesSelected">
+                                <button mat-raised-button color="primary" style="margin-right: 2rem;">
+                                    {{activity.label}}
+                                    <mat-icon (click)="removeActivity(activity)">cancel</mat-icon>
+                                </button>
+                            </ng-container>
+                        </div>
+
+                        <div class="step_button_container">
+                            <button mat-raised-button matStepperPrevious style="margin-right: 2rem;">Retour</button>
+                            <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <form>
+                        <ng-template matStepLabel>Thématiques</ng-template>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Thématiques..." #thematicInput [formControl]="thematicCtrl"
+                                [matAutocomplete]="thematicAuto">
+                            <mat-autocomplete autoActiveFirstOption #thematicAuto="matAutocomplete"
+                                (optionSelected)="selectedThematic($event)">
+                                <mat-option *ngFor="let thematic of filteredThematics | async" [value]="thematic.label">
+                                    {{thematic.label}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                        <div>
+                            <ng-container *ngFor="let thematic of thematicsSelected">
+                                <button mat-raised-button color="primary" style="margin-right: 2rem;"
+                                    (click)="removeThematic(thematic)">
+                                    {{thematic.label}}
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </ng-container>
+                        </div>
+
+                        <div class="step_button_container">
+                            <button mat-raised-button matStepperPrevious style="margin-right: 2rem;">Retour</button>
+                            <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <form>
+                        <ng-template matStepLabel>Étiquettes</ng-template>
+
+                        <div class="tags_container">
+                            <div class="title">Étiquettes à ajouter</div>
+                            <ng-container *ngFor="let tag of tagList">
+                                <ng-container *ngIf="!tagIsSelected(tag)">
+                                    <button mat-raised-button color="accent" (click)="addTag(tag)">
+                                        {{tag.label}}
+                                        <mat-icon>add_circle</mat-icon>
+                                    </button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <div class="tags_container">
+                            <div class="title">Étiquettes {{tagsSelected.length > 1 ? 'ajoutées' : 'ajoutée'}}</div>
+                            <ng-container *ngFor="let tag of tagsSelected">
+
+                                <ng-container *ngIf="tag.id">
+                                    <button mat-raised-button color="primary" (click)="removeTag(tag)">
+                                        {{tag.label}}
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </ng-container>
+
+                                <ng-container *ngIf="tag.id == null">
+                                    <button mat-raised-button [disabled]="tag.id">
+                                        {{tag.label}}
+                                    </button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <div class="step_button_container">
+                            <button mat-raised-button matStepperPrevious style="margin-right: 2rem;">Retour</button>
+                            <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <form>
+                        <ng-template matStepLabel>Récapitulatif</ng-template>
+
+                        <mat-accordion multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header class="toggle_custom">
+                                    <mat-panel-title>
+                                        Informations principales
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="line_split_three">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Nom</div>
+                                        <div *ngIf="data.stay.name != null; else stayRecapNameElseBlock"
+                                            class="content">
+                                            {{data.stay.name}}
+                                        </div>
+                                        <ng-template #stayRecapNameElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Date de début</div>
+                                        <div *ngIf="data.stay.startDate != null; else stayRecapStartDateElseBlock"
+                                            class="content">
+                                            {{dayEnToFr(data.stay.startDate | date:'EEEE')}}
+                                            {{data.stay.startDate | date:'dd'}}
+                                            {{monthEnToFr(data.stay.startDate | date:'LLLL')}}
+                                            {{data.stay.startDate | date:'yyyy'}}
+                                        </div>
+                                        <ng-template #stayRecapStartDateElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Date de fin</div>
+                                        <div *ngIf="data.stay.endDate != null; else stayRecapEndDateElseBlock"
+                                            class="content">
+                                            {{dayEnToFr(data.stay.endDate | date:'EEEE')}}
+                                            {{data.stay.endDate | date:'dd'}}
+                                            {{monthEnToFr(data.stay.endDate | date:'LLLL')}}
+                                            {{data.stay.endDate | date:'yyyy'}}
+                                        </div>
+                                        <ng-template #stayRecapEndDateElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                                <div class="line_split_one">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Résumé</div>
+                                        <div *ngIf="data.stay.abstract != null; else stayRecapAbstractElseBlock"
+                                            class="content">
+                                            {{data.stay.abstract}}
+                                        </div>
+                                        <ng-template #stayRecapAbstractElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+
+                                <div class="line_split_two">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Description</div>
+                                        <div *ngIf="data.stay.description != null; else stayRecapDescriptionElseBlock"
+                                            class="content">
+                                            {{data.stay.description}}
+                                        </div>
+                                        <ng-template #stayRecapDescriptionElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Autres informations</div>
+                                        <div *ngIf="data.stay.otherInformations != null; else stayRecapOtherInformationsElseBlock"
+                                            class="content">
+                                            {{data.stay.otherInformations}}
+                                        </div>
+                                        <ng-template #stayRecapOtherInformationsElseBlock>
+                                            <div class="content">
+                                                Information non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="line_split_three">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Nombre de places</div>
+                                        <div *ngIf="data.stay.nbPlaces != null; else stayRecapNbPlacesElseBlock"
+                                            class="content">
+                                            {{data.stay.nbPlaces}}
+                                        </div>
+                                        <ng-template #stayRecapNbPlacesElseBlock>
+                                            <div class="content">
+                                                Information non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Prix de départ</div>
+                                        <div *ngIf="data.stay.price != null; else stayRecapPriceElseBlock"
+                                            class="content">
+                                            {{data.stay.price}}
+                                        </div>
+                                        <ng-template #stayRecapPriceElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Niveau de pratique</div>
+                                        <div *ngIf="data.stay.praticLevel != null; else stayRecapPraticLevelElseBlock"
+                                            class="content">
+                                            {{data.stay.praticLevel}}
+                                        </div>
+                                        <ng-template #stayRecapPraticLevelElseBlock>
+                                            <div class="content">
+                                                Information non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header class="toggle_custom">
+                                    <mat-panel-title>
+                                        Localisation
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="line_split_two">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Rue</div>
+                                        <div *ngIf="data.stay.street != null; else stayRecapStreetElseBlock"
+                                            class="content">
+                                            {{data.stay.street}}
+                                        </div>
+                                        <ng-template #stayRecapStreetElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Ville</div>
+                                        <div *ngIf="data.stay.city != null; else stayRecapCitysElseBlock"
+                                            class="content">
+                                            {{data.stay.city}}
+                                        </div>
+                                        <ng-template #stayRecapCitysElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+
+                                <div class="line_split_two">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Code postal</div>
+                                        <div *ngIf="data.stay.zipCode != null; else stayRecapZipCodeElseBlock"
+                                            class="content">
+                                            {{data.stay.zipCode}}
+                                        </div>
+                                        <ng-template #stayRecapZipCodeElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="stay_recap_container">
+                                        <div class="label">Pays</div>
+                                        <div *ngIf="data.stay.country != null; else stayRecapCountryElseBlock"
+                                            class="content">
+                                            {{data.stay.country}}
+                                        </div>
+                                        <ng-template #stayRecapCountryElseBlock>
+                                            <div class="data_empty content">
+                                                Information <strong>OBLIGATOIRE</strong> non remplie
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header class="toggle_custom">
+                                    <mat-panel-title>
+                                        Activités
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="line_split_one">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Activités</div>
+                                        <div class="button_wrapper">
+                                            <ng-container
+                                                *ngIf="activitiesSelected.length > 0; else stayRecapActivitiesElseBlock ">
+                                                <ng-container
+                                                    *ngFor="let activity of activitiesSelected; let isLast = last">
+                                                    <button mat-raised-button class="thin_button" color="primary">
+                                                        {{activity.label}}
+                                                    </button>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-template #stayRecapActivitiesElseBlock>
+                                                <div class="content">
+                                                    Information non remplie
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header class="toggle_custom">
+                                    <mat-panel-title>
+                                        Thématiques
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="line_split_one">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Thématiques</div>
+                                        <div class="button_wrapper">
+                                            <ng-container
+                                                *ngIf="thematicsSelected.length > 0; else stayRecapThematicsElseBlock ">
+                                                <ng-container
+                                                    *ngFor="let thematic of thematicsSelected; let isLast = last">
+                                                    <button mat-raised-button class="thin_button" color="primary">
+                                                        {{thematic.label}}
+                                                    </button>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-template #stayRecapThematicsElseBlock>
+                                                <div class="content">
+                                                    Information non remplie
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header class="toggle_custom">
+                                    <mat-panel-title>
+                                        Etiquettes
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="line_split_one">
+                                    <div class="stay_recap_container">
+                                        <div class="label">Etiquettes</div>
+                                        <div class="button_wrapper">
+                                            <ng-container *ngIf="tagsSelected.length > 0; else stayRecapTagsElseBlock ">
+                                                <ng-container *ngFor="let tag of tagsSelected; let isLast = last">
+                                                    <button mat-raised-button class="thin_button" color="primary">
+                                                        {{tag.label}}
+                                                    </button>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-template #stayRecapTagsElseBlock>
+                                                <div class="content">
+                                                    Information non remplie
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <div>
+                            <div class="btn_one_container">
+                                <button type="submit" mat-raised-button color="primary" (click)="onClose()">
+                                    {{data.stay.id ? 'Modifier' : 'Ajouter'}}
+                                </button>
+                            </div>
+
+                            <div class="step_button_container">
+                                <button mat-raised-button matStepperPrevious>Retour</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="data.item == 'Maps'">
+        <map></map>
+    </ng-container>
+
+    <ng-container *ngIf="data.item == 'Registration'">
+        <div class="card_title">Inscription</div>
+
+        <div class="card_wrapper">
+
+            <div class="card_label">Je suis :</div>
+
+            <mat-radio-group [(ngModel)]="isUser">
+                <mat-radio-button [value]="true">Un parent</mat-radio-button>
+                <mat-radio-button [value]="false">Une structure</mat-radio-button>
+            </mat-radio-group>
+
+            <ng-container *ngIf="isUser != null">
+                <form>
+                    <ng-container *ngIf="isUser == true">
+                        <div class="row_double">
+                            <mat-form-field>
+                                <mat-label>Prénom</mat-label>
+                                <input matInput [(ngModel)]="newUser.firstName" placeholder="Prénom"
+                                    name="newUserFirstName" [formControl]="firstNameFormControl">
+                                <mat-error *ngIf="firstNameFormControl.hasError('required')">
+                                    Prénom <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Nom</mat-label>
+                                <input matInput [(ngModel)]="newUser.lastName" placeholder="Nom" name="newUserLastName"
+                                    [formControl]="lastNameFormControl">
+                                <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                                    Nom <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field>
+                            <input [(ngModel)]="newUser.email" matInput placeholder="Email"
+                                [formControl]="emailFormControl" name="newUserEmail">
+                            <mat-error
+                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Merci d'entrer une adresse email valide
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email <strong>requis</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <mat-label>Rue</mat-label>
+                                <input matInput [(ngModel)]="newUser.street" placeholder="Rue" name="newUserStreet"
+                                    [formControl]="streetFormControl">
+                                <mat-error *ngIf="streetFormControl.hasError('required')">
+                                    Rue <strong>requise</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Code Postal</mat-label>
+                                <input matInput type="number" [(ngModel)]="newUser.zipCode" placeholder="Code postal"
+                                    name="newUserZipCode" [formControl]="zipCodeFormControl">
+                                <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+                                    Code postal <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <mat-label>Ville</mat-label>
+                                <input matInput [(ngModel)]="newUser.city" placeholder="Ville" name="newUserCity"
+                                    [formControl]="cityFormControl">
+                                <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+                                    Ville <strong>requise</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Pays</mat-label>
+                                <input matInput [(ngModel)]="newUser.country" placeholder="Pays" name="newUserCountry"
+                                    [formControl]="countryFormControl">
+                                <mat-error *ngIf="countryFormControl.hasError('required')">
+                                    Pays <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="isUser == false">
+                        <div class="row_double">
+                            <mat-form-field>
+                                <input [(ngModel)]="newStructure.name" matInput placeholder="Nom de structure"
+                                    name="newStructureName" [formControl]="nameFormControl">
+                                    <mat-error *ngIf="nameFormControl.hasError('required')">
+                                        Nom de structure <strong>requis</strong>
+                                    </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input [(ngModel)]="newStructure.siret" matInput placeholder="SIRET"
+                                    name="newStructureSiret" [formControl]="streetFormControl">
+                                    <mat-error *ngIf="siretFormControl.hasError('required')">
+                                        SIRET <strong>requis</strong>
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field>
+                            <input [(ngModel)]="newStructure.email" matInput placeholder="Email"
+                                [formControl]="emailFormControl" name="newStructureEmail">
+                            <mat-error
+                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Merci d'entrer une adresse email valide
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email <strong>requis</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <mat-label>Rue</mat-label>
+                                <input matInput [(ngModel)]="newStructure.street" placeholder="Rue"
+                                    name='newStructureStreet'[formControl]="streetFormControl">
+                                    <mat-error *ngIf="streetFormControl.hasError('required')">
+                                        Rue <strong>requise</strong>
+                                    </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Code Postal</mat-label>
+                                <input matInput type="number" [(ngModel)]="newStructure.zipCode"
+                                    placeholder="Code postal" name="newStructureZipCode" [formControl]="zipCodeFormControl">
+                                    <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+                                        Code postal <strong>requis</strong>
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row_double">
+                            <mat-form-field>
+                                <mat-label>Ville</mat-label>
+                                <input matInput [(ngModel)]="newStructure.city" placeholder="Ville"
+                                    name="newStructureCity" [formControl]="cityFormControl">
+                                <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+                                    Ville <strong>requise</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Pays</mat-label>
+                                <input matInput [(ngModel)]="newStructure.country" placeholder="Pays"
+                                    name="newStructureCountry" [formControl]="countryFormControl">
+                                <mat-error *ngIf="countryFormControl.hasError('required')">
+                                    Pays <strong>requis</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+
+                    <div class="btn_one_container">
+                        <button type="submit" mat-raised-button color="primary" (click)="onClose()">S'inscrire</button>
+                    </div>
+                </form>
+            </ng-container>
+        </div>
+    </ng-container>
+
+</div>
+
+
+<loader *ngIf="isLoading"></loader>

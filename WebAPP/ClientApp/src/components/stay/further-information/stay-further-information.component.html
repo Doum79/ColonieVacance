@@ -1,0 +1,44 @@
+<div class="title">TARIFS & RESERVATIONS</div>
+
+<table>
+    <thead>
+        <tr>
+            <th><div class="left">Date de départ</div></th>
+            <th><div>Avec ou sans transport</div></th>
+            <th><div>Ville de départ</div></th>
+            <th><div>Prix / pers (j/n)</div></th>
+            <th><div>Réserver</div></th>
+            <th><div>Statut</div></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <ng-container *ngFor="let information of furtherInformationsList">
+            <tr>
+                <td>
+                    <div>{{information.startDate | date:'dd/MM/yyyy'}}</div>
+                </td>
+                <td>
+                    <div>{{information.withTransport ? 'Avec' : 'Sans'}}</div>
+                </td>
+                <td>
+                    <div>{{information.startCity}}</div>
+                </td>
+                <td>
+                    <div class="center">
+                        {{information.price}} €
+                        ({{calculateDiffDate(information.startDate, information.endDate)}} jours /
+                        {{calculateDiffDate(information.startDate, information.endDate) - 1}} nuits)
+                    </div>
+                </td>
+                <td>
+                    <div class="center"><button mat-raised-button color="primary" class="thin_button" type="button"
+                            (click)="goTo(information.redirectionLink)">Réservation</button></div>
+                </td>
+                <td>
+                    <div>Disponible</div>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

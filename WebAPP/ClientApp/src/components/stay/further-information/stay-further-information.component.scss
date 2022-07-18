@@ -1,0 +1,38 @@
+@import '../../../shared/styles/variables.scss';
+
+.title{
+    font-weight: bold;
+    font-size: $big_title;
+    margin-bottom: 3rem;
+}
+
+table
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th
+{
+    border: 1px solid $light_gray;
+}
+
+th{
+    background-color: $orange;
+    color: $white;
+    font-weight: lighter;
+}
+
+td, th{
+    div{
+        padding: 2rem;
+    }
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.left{
+    text-align: left !important;
+}

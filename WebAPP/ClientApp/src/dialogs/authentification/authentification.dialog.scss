@@ -1,0 +1,111 @@
+﻿@import "../../shared/styles/variables.scss";
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .left_part {
+    width: 50%;
+    height: 100%;
+    position: relative;
+
+    .background_container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        object-position: center;
+      }
+    }
+
+    .logo_container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 40%;
+      }
+    }
+  }
+
+  .right_part {
+    width: calc(50% - 10rem);
+    height: calc(100% - 10rem);
+    padding: 5rem;
+
+    .arrow_container {
+      height: 3rem;
+      display: flex;
+      align-items: center;
+    }
+
+    form {
+      margin-top: 20%;
+
+      .title {
+        font-size: $big_title;
+        font-weight: 500;
+      }
+
+      .form_data_container{
+          margin-top: 5rem;
+
+          mat-form-field{
+              width: 100%;
+
+              mat-icon{
+                  cursor: pointer;
+              }
+          }
+
+          .button_line{
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 3rem;
+              button{
+                  width: 45%;
+
+                  &:first-child{
+                      color: white;
+                  }
+              }
+          }
+
+          .footer{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .register{
+              text-decoration: underline;
+              margin-bottom: 2rem;
+              cursor: pointer;
+            }
+
+            .informations{
+              font-size: $thin_text;
+              text-align: center;
+              width: 80%;
+
+              span{
+                font-weight: bold;
+                text-decoration: underline;
+              }
+            }
+            
+          }
+      }
+    }
+  }
+}

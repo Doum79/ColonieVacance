@@ -1,0 +1,35 @@
+﻿@import '../../shared/styles/variables.scss';
+
+.account_container {
+    height: calc(100vh - 10rem);
+    width: calc(100% - 4rem);
+    padding: 2rem;
+
+    .informations_wrapper {
+        display: flex;
+        border: 0.2rem solid $blue;
+        border-radius: 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+
+        .information_block {
+            display: flex;
+            margin-bottom: 1rem;
+
+            .information_title {
+                font-weight: bold;
+            }
+        }
+
+        .information_block:last-child {
+            margin-bottom: 0;
+        }
+
+        button{
+            width: 50%;
+            margin-top: 2rem;
+        }
+    }
+}

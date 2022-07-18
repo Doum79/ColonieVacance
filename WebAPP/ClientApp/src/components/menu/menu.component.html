@@ -1,0 +1,18 @@
+﻿<div class="menu_container">
+    <div class="left_part">
+        <ng-container *ngFor="let item of menuItems">
+            <div class="item_container" [routerLink]="item.route">
+                <div class="title">{{item.title}}</div>
+                <img *ngIf="item.route == menuSelected" src="../../assets/shapes/selected-menu.png" />
+            </div>
+        </ng-container>
+    </div>
+    <div class="right_part">
+        <ng-container *ngIf="currentUser == null || currentUser.profil == 'USER'">
+            <button mat-button>Favoris</button>
+        </ng-container>
+        <ng-container *ngIf="currentUser == null || currentUser.profil == 'STRUCTURE'">
+            <button mat-raised-button color="accent" (click)="addStay()">AJOUTER UN SEJOUR</button>
+        </ng-container>
+    </div>
+</div>

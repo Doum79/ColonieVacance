@@ -1,0 +1,83 @@
+<h2 mat-dialog-title> Rechercher vos plan de sejour </h2>
+<mat-dialog-content class="mat-typography">
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Thematiques
+                </mat-panel-title>
+                <mat-panel-description>
+
+                    Slectionner la Destinations Souhaitez
+                    <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-selection-list [(ngModel)]="isSelected">
+                <mat-list-option *ngFor="let thematic of thematicList" [value]="thematic">
+                    {{thematic.label}}
+                </mat-list-option>
+
+            </mat-selection-list>
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-selection-list  [(ngModel)]="isSelected">
+            <mat-list-option *ngIf="currentUser.profil == 'STRUCTURE' && currentUser.contry != null">
+                {{currentUser.contry}}
+            </mat-list-option>
+
+        </mat-selection-list>
+
+
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Pays
+                </mat-panel-title>
+                <mat-panel-description>
+                    Pays de la Destination du Sejour
+                    <mat-icon>map</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-panel-title>
+
+                <div class="line_split_one">
+                    <address-autocomplete [placeHolder]="'Adresse'" style="height: 100%; width: 19%;"
+                                          (locationChange)="changeStructureAddress($event)" [required]="true">
+                    </address-autocomplete>
+                </div>
+
+            </mat-panel-title>
+
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Regions
+                </mat-panel-title>
+                <mat-panel-description>
+                    Regions de la Destination du Sejour
+                    <mat-icon>map</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            #REGION
+
+
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Terminer</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial style="background: orange;"> Valider</button>
+    <!--<button mat-button mat-dialog-close ="false" style="background: orange;"> Annuler</button>-->
+</mat-dialog-actions>

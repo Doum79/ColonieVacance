@@ -1,0 +1,163 @@
+﻿<header> </header>
+
+<div class="first_part_container">
+    <div class="img_container">
+        <img [src]="stay.picturesList[0].pictureUrl" />
+    </div>
+
+    <div class="informations_container">
+        <div class="first_line">
+            Age : {{stay.minYear}} - {{stay.maxYear}}
+        </div>
+
+        <div class="second_line">
+            <div>A partir de &nbsp;</div>
+            <div class="price">{{fromPrice}} € / pers</div>
+        </div>
+
+        <div class="third_line">
+            <div class="title">{{stay.title}}</div>
+            <div class="abstract">{{stay.description}}</div>
+            <button (click)="scrollToElement('furtherInformation')" mat-raised-button color="accent"
+                type="button">Réserver</button>
+        </div>
+    </div>
+</div>
+
+<div class="second_part_container">
+    <div class="first_column">
+        <div class="content_wrapper">
+            <div class="title">Les + du séjour</div>
+            <div class="content"></div>
+        </div>
+
+        <div class="content_wrapper">
+            <div class="title">Programme & activités</div>
+            <div class="content">{{stay.program}}</div>
+        </div>
+
+        <div class="content_wrapper">
+            <div class="title">Équipe d'encadrement</div>
+            <div class="content">
+                <ng-container *ngFor="let stayTeam of stay.partnersList; let i = index">
+                    {{stayTeam.partnerName}}{{i != stay.partnersList.length - 1 ? ',' : ''}}
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="second_column">
+        <div class="content_wrapper">
+            <div class="title">Thématique{{stay.thematicsList.length > 1 ? 's' : ''}}</div>
+            <div class="content">
+                <ng-container *ngFor="let stayThematic of stay.thematicsList; let i = index">
+                    {{stayThematic.thematic.label}}{{i != stay.thematicsList.length - 1 ? ',' : ''}}
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="content_wrapper">
+            <div class="title">Activité{{stay.activitiesList.length > 1 ? 's' : ''}}</div>
+            <div class="content">
+                <ng-container *ngFor="let stayActivity of stay.activitiesList; let i = index">
+                    {{stayActivity.activity.label}}{{i != stay.activitiesList.length - 1 ? ',' : ''}}
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="content_wrapper">
+            <div class="content_picture">
+                <ng-container *ngFor="let picture of stay.picturesList; let i = index">
+                    <img [src]="picture.pictureUrl" />
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="content_wrapper">
+            <div class="title">Hébergement</div>
+            <div class="content">
+                {{stay.housing}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="third_part_container">
+    <div class="first_column">
+        <div class="item" (click)="isFirstCategory = true;"
+            [ngStyle]="{'border-right-color': isFirstCategory ? '#ffb900' : '#d8d8d8'}">Equipements</div>
+        <div class="item" (click)="isFirstCategory = false;"
+            [ngStyle]="{'border-right-color': !isFirstCategory ? '#ffb900' : '#d8d8d8'}">Accès & Localisation</div>
+    </div>
+
+
+    <div class="informations_container">
+        <ng-container *ngIf="isFirstCategory">
+            <div class="first_category_container">
+                <div class="wrapper">
+                    <div class="title">Equipement(s) inclus</div>
+                    <div class="line"></div>
+                    <div class="list">
+                        <ng-container *ngFor="let stayEquipment of stay.equipmentsList">
+                            <ng-container *ngIf="stayEquipment.isIncluded == true">
+                                <div class="item">{{stayEquipment.label}}</div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="wrapper">
+                    <div class="title">Equipement(s) non inclus</div>
+                    <div class="line"></div>
+                    <div class="list">
+                        <ng-container *ngFor="let stayEquipment of stay.equipmentsList">
+                            <ng-container *ngIf="stayEquipment.isIncluded == false">
+                                <div class="item">{{stayEquipment.label}}</div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isFirstCategory">
+            <div class="second_category_container">
+                <div class="wrapper">
+                    <div class="title">Accès</div>
+                    <div class="line"></div>
+                    <div class="list">
+                        <ng-container *ngFor="let stayAccess of stay.accessesList">
+                            <div class="item">{{stayAccess.label}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+                    <map [inputDisplayStays]="stayInArray" [inputToFocus]="'STAY'" [inputHeight]="60"></map>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div *ngIf="stay.moreInformations != null" class="fourth_part_container">
+    <div class="title">Informations complémentaires</div>
+    <div class="content">{{stay.moreInformations}}</div>
+</div>
+
+<div class="fifth_part_container" id="furtherInformation">
+    <stay-further-information [furtherInformationsList]="stay.furtherInformationsList"></stay-further-information>
+</div>
+
+<div class="gallery_container">
+    <img [src]="selectedPicture" />
+    <div class="picture_list">
+        <div class="title">GALLERIE</div>
+        <div class="little_picture_container">
+            <ng-container *ngFor="let picture of stay.picturesList">
+                <img (click)="selectedPicture = picture.pictureUrl" [src]="picture.pictureUrl" />
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<footer></footer>
+
+<loader *ngIf="isLoading"></loader>

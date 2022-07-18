@@ -1,0 +1,140 @@
+﻿
+
+<div class="img_container" [ngStyle]="{'height': heightSize}">
+    <img [src]="imageUrl" />
+
+    <div class="title_container">
+        {{title}}
+    </div>
+
+    <div class="searchbar_container" [ngStyle]="{'bottom': moreFilters ? '-3.5rem' : '-10rem'}">
+        <div class="searchbar" [ngStyle]="{'height': moreFilters ? 'calc(100% + 4rem)' : 'calc(100% - 6rem)'}">
+            <div class="first_line">
+
+                <!-- <mat-form-field appearance="outline">
+
+        <input matInput placeholder="Que recherchez-vous?"  (click)="openDialog()">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>-->
+
+                <mat-form-field appearance="outline">
+
+                    <input matInput placeholder="Que recherchez-vous?" [(ngModel)]="searchKeys.wordText">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                
+              
+                <!--<mat-form-field appearance="outline">
+                    <mat-select multiple placeholder="Date de départ" (click)="openDialog()"
+                                [(ngModel)]="searchKeys.startDate" >
+
+                        <mat-option *ngFor="let selected of startDate" >
+                            {{selected}}
+                        </mat-option>
+                    </mat-select>-->
+                    <mat-form-field appearance="outline">
+                        
+                    <input matInput 
+                    placeholder="Date de départ" 
+                    (click)="openDialog()"
+                    [(ngModel)]="typesOfMois.label "
+                   
+                    readonly >
+                    
+                   
+
+                
+                        </mat-form-field>
+
+                <address-autocomplete [placeHolder]="'Ville de départ'" [searchType]="'city'" [style]="'searchbar'"
+                                      style="height: 100%; " (locationChange)="changeStayCityPeriod($event)">
+                </address-autocomplete>
+
+                <mat-form-field appearance="outline">
+                    <mat-select placeholder="Thématiques" multiple [(ngModel)]="searchKeys.thematics"
+                                [compareWith]="compareThematic" name="thematicSearchList">
+                        <mat-option *ngFor="let thematic of thematicList" [value]="thematic">
+                            {{thematic.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-select placeholder="Age" multiple [(ngModel)]="searchKeys.yearList" [compareWith]="compareYear"
+                                name="yearSearchList">
+                        <mat-option *ngFor="let year of yearList" [value]="year">
+                            {{year}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <ng-container *ngIf="moreFilters">
+                <div class="second_line">
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Durée" multiple [(ngModel)]="searchKeys.durationList"
+                                    [compareWith]="compareDuration" name="yearSearchList">
+                            <mat-option *ngFor="let duration of durationList" [value]="duration.value">
+                                {{duration.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Activités" multiple [(ngModel)]="searchKeys.activities"
+                                    [compareWith]="compareActivity" name="activitySearchList">
+                            <mat-option *ngFor="let activity of activityList" [value]="activity">
+                                {{activity.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-select multiple placeholder="Destinations" (click)="openDialog2()"
+                                    [(ngModel)]="searchKeys.startDate">
+
+
+                        </mat-select>
+                        <!--<input matInput placeholder="Date de départ" (click)="openDialog()"
+               [(ngModel)]="searchKeys.startDate">-->
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Organisateurs" [(ngModel)]="searchKeys.structs"
+                                    [compareWith]="compareStruct" name="structSearchList">
+
+                            <mat-option *ngFor="let struct of structureList" [value]="struct">
+                                {{struct.profil}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+
+            <button mat-fab color="primary" class="search_button" (click)="search()"
+                    [ngStyle]="{'bottom': moreFilters ? '10rem' : '6.5rem'}">
+                <mat-icon>search</mat-icon>
+            </button>
+
+            <div class="more_filter_container">
+                <button mat-button (click)="moreFilters = !moreFilters">
+                    <mat-icon>{{moreFilters ? 'remove_circle': 'add_circle'}}</mat-icon>
+                    <span class="text">De Filtres</span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- <button mat-raised-button color="primary" 
+            [ngStyle]="{'bottom': moreFilters ? '-16rem' : '-6rem'}">
+            Rechercher
+        </button> -->
+    </div>
+</div>
+
+<loader *ngIf="isLoading"></loader>

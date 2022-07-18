@@ -1,0 +1,48 @@
+﻿    <header> </header>
+<searchbar imageUrl="../../assets/pictures/stay-list.png"
+    title="Réservez en toute simplicité, un séjour en France ou à l’étranger" heightSize="calc(75vh - 15rem)"
+    (staysList)="updateList($event)">
+</searchbar>
+
+<div class="stays_container">
+    <div class="tools_wrapper">
+        <div class="wrapper">
+            Résultats de votre recherche : {{staysList.length}}
+        </div>
+
+        <div class="wrapper">
+            <img (click)="displayStyle = 'BLOCK'"
+                [src]="displayStyle == 'BLOCK' ? '../../assets/icons/display-block-orange.png' : '../../assets/icons/display-block-orange.png'" />
+            <img (click)="displayStyle = 'LIST'"
+                [src]="displayStyle == 'LIST' ? '../../assets/icons/display-list-gray.png' : '../../assets/icons/display-list-gray.png'" />
+            <img (click)="displayStyle = 'MAPS'"
+                [src]="displayStyle == 'MAPS' ? '../../assets/icons/display-maps-orange.png' : '../../assets/icons/display-maps-gray.png'" />
+        </div>
+    </div>
+
+    <ng-container *ngIf="displayStyle == 'BLOCK'">
+        <div class="stays_wrapper_block">
+            <ng-container *ngFor="let stay of staysList">
+                <stay-card [stay]="stay" [picture]="stay.picturesList[0].pictureUrl" [redirection]="true"></stay-card>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="displayStyle == 'LIST'">
+        <div class="stays_wrapper_list">
+            <ng-container *ngFor="let stay of staysList">
+                <div class="container">
+                    <stay-card [stay]="stay" [picture]="stay.picturesList[0].pictureUrl" [redirection]="true"></stay-card>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="displayStyle == 'MAPS'">
+        <div class="map_container">
+            <map [inputDisplayStays]="staysList" [inputToFocus]="'USER'"
+            [inputHeight]="60"></map>
+        </div>
+    </ng-container>
+</div>
+<loader *ngIf="isLoading"></loader>

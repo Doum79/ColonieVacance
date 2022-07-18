@@ -1,0 +1,142 @@
+﻿<div class="wrapper">
+    <div class="left_part">
+        <div class="background_container">
+            <img src="../../../assets/pictures/authentification.png" />
+        </div>
+        <div class="logo_container">
+            <img src="../../../assets/logos/WeColo.png" />
+        </div>
+    </div>
+
+    <div class="right_part">
+        <!-- <div class="arrow_container">
+            <button mat-icon-button (click)="dialog.close()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div> -->
+
+        <form>
+            <div class="title">
+                <div class="line">Bienvenue !</div>
+                <div class="line">Créez votre compte</div>
+            </div>
+
+            <mat-horizontal-stepper linear>
+                <mat-step>
+                    <div class="step_container step_container_center">
+                        <button mat-raised-button color="accent" (click)="isUser = true" matStepperNext
+                            type="button">Parent</button>
+                        <button mat-raised-button color="primary" (click)="isUser = false" matStepperNext
+                            type="button">Structure</button>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <div class="step_container">
+                        <ng-container *ngIf="isUser; else isUserElse">
+                            <div class="line_split_two">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Prénom</mat-label>
+                                    <input matInput placeholder="Prénom" [(ngModel)]="user.firstName"
+                                        [formControl]="firstNameFormControl" required>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Nom</mat-label>
+                                    <input matInput placeholder="Nom" [(ngModel)]="user.lastName"
+                                        [formControl]="lastNameFormControl" required>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="line_split_one">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>E-mail</mat-label>
+                                    <input matInput placeholder="E-mail" [(ngModel)]="user.email"
+                                        [formControl]="emailFormControl" required>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="line_split_two">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Mot de passe</mat-label>
+                                    <input matInput [formControl]="passwordFormControl"
+                                        [type]="hide ? 'password' : 'text'" placeholder="Mot de passe"
+                                        [(ngModel)]="user.password" required>
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+                                        'visibility'}}</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Confirmation mot de passe</mat-label>
+                                    <input matInput [formControl]="confirmPasswordFormControl" type="password"
+                                        placeholder="Confirmation mot de passe" [(ngModel)]="user.confirmPassword" required>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-template #isUserElse>
+                            <div class="line_split_one">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Nom de l'organisme</mat-label>
+                                    <input matInput placeholder="Nom de l'organisme" [(ngModel)]="structure.name"
+                                        [formControl]="nameFormControl" required>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="line_split_two">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>N° de téléphone</mat-label>
+                                    <input [(ngModel)]="structure.phone" matInput maxlength="10"
+                                        placeholder="N° de téléphone" [formControl]="phoneNumberFormControl" required>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>N° d'agrément / SIRET</mat-label>
+                                    <input [(ngModel)]="structure.siret" matInput
+                                        placeholder="N° d'agrément / SIRET" [formControl]="siretFormControl" required>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="line_split_one">
+                                <address-autocomplete [placeHolder]="'Adresse'"style="height: 100%;"
+                                    (locationChange)="changeStructureAddress($event)" [required]="true">
+                                </address-autocomplete>
+                            </div>
+
+                            <div class="line_split_one">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>E-mail</mat-label>
+                                    <input matInput placeholder="E-mail" [(ngModel)]="structure.email"
+                                        [formControl]="emailFormControl" required>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="line_split_two">
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Mot de passe</mat-label>
+                                    <input matInput [formControl]="passwordFormControl"
+                                        [type]="hide ? 'password' : 'text'" placeholder="Mot de passe"
+                                        [(ngModel)]="structure.password" required>
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+                                        'visibility'}}</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" color="primary">
+                                    <mat-label>Confirmation mot de passe</mat-label>
+                                    <input matInput [formControl]="confirmPasswordFormControl" type="password"
+                                        placeholder="Confirmation mot de passe" [(ngModel)]="structure.confirmPassword" required>
+                                </mat-form-field>
+                            </div>
+                        </ng-template>
+                        <div class="line_split_one">
+                            <button mat-raised-button color="accent" type="submit" (click)="register()">
+                                Commencer
+                            </button>
+                        </div>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </form>
+    </div>
+</div>
+
+<loader *ngIf="isLoading"></loader>

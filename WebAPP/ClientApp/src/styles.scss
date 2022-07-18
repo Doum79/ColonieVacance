@@ -1,0 +1,99 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'shared/styles/variables.scss';
+@import 'shared/styles/material-style-extension.scss';
+@import 'shared/styles/layout.scss';
+@import 'shared/styles/animations.scss';
+@import 'shared/styles/material-theming.scss';
+
+html {
+    overflow-x: hidden;
+    font-size: 62.5%;
+    // iPad pro
+    @media only screen and (min-width : 1400px) and (max-width : 1700px) {
+        font-size: 49%;
+    }
+
+    @media only screen and (min-width : 1024px) and (max-width : 1399px) {
+        font-size: 45%;
+    }
+    // iPad
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+        font-size: 35%;
+    }
+    // Smartphone
+    @media only screen and (max-width: 768px) {
+        font-size: 45%;
+    }
+
+}
+
+body {
+    font-size: $normal_text;
+    margin: 0;
+}
+
+.data_empty{
+    color: $red;
+}
+
+.scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 1rem;
+}
+
+.scroll::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: $gray;
+    border-radius: 2rem;
+    border: 0.2rem solid $white
+}
+
+.cursor_pointer{
+    cursor: pointer;
+}
+
+*{
+    outline: 0;
+}
+
+.removeStyle{
+    border: 0.2rem solid $red;
+}
+
+menu{
+    margin: 0;
+    padding: 0;
+}
+
+.accessibility_hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.font_orange{
+    color: $orange !important;
+}

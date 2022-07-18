@@ -1,0 +1,89 @@
+﻿@mixin col {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    &.flex-row {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+$col-width: (100% / 12);
+$row-margin: 3rem;
+
+.row {
+    width: 100%;
+
+    &.no-margin {
+        margin: 0;
+    }
+
+    &.fixed-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+
+    .col, .col-12 {
+        @include col;
+        width: 100%;
+    }
+
+    .col-1 {
+        @include col;
+        width: $col-width;
+    }
+
+    .col-2 {
+        @include col;
+        width: calc(2 * #{$col-width});
+    }
+
+    .col-3 {
+        @include col;
+        width: calc(3 * #{$col-width});
+    }
+
+    .col-4 {
+        @include col;
+        width: calc(4 * #{$col-width});
+    }
+
+    .col-5 {
+        @include col;
+        width: calc(5 * #{$col-width});
+    }
+
+    .col-6 {
+        @include col;
+        width: calc(6 * #{$col-width});
+    }
+
+    .col-7 {
+        @include col;
+        width: calc(7 * #{$col-width});
+    }
+
+    .col-8 {
+        @include col;
+        width: calc(8 * #{$col-width});
+    }
+
+    .col-9 {
+        @include col;
+        width: calc(9 * #{$col-width});
+    }
+
+    .col-10 {
+        @include col;
+        width: calc(10 * #{$col-width});
+    }
+
+    .col-11 {
+        @include col;
+        width: calc(11 * #{$col-width});
+    }
+}

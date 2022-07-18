@@ -1,0 +1,69 @@
+﻿@import '../../../shared/styles/variables.scss';
+
+.container{
+    width: 40rem;
+    height: 15rem;
+    display: flex;
+    padding: 1rem;
+    border: 0.1rem solid $orange;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    .left_part{
+        width: calc(100% - 15rem);
+        height: 100%;
+        border-right: 0.5rem solid $orange;
+        .title{
+            height: 3rem;
+            font-size: $little_title;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .location{
+            height: 3rem;
+            font-size: $normal_text;
+            display: flex;
+            align-items: center;
+            mat-icon{
+                font-size: 2rem;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .abstract{
+            padding-top: 1rem;
+            height: calc(100% - 7rem);
+            font-size: $very_thin_text;
+        }
+    }
+    .right_part{
+        width: 15rem;
+        height: 100%;
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            object-position: center;
+            border-bottom-right-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+    }
+}
+
+
+.top_container {
+    height: 5rem;
+    width: calc(100% - 3rem);
+    color: $orange;
+    display: flex;
+    align-items: center;
+    padding-left: 3rem;
+    font-weight: 500;
+}

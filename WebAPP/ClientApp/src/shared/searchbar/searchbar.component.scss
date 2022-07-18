@@ -1,0 +1,150 @@
+﻿@import "../../shared/styles/variables.scss";
+
+.img_container {
+    width: 100%;
+    position: relative;
+    margin-bottom: 15rem;
+    display: flex;
+    justify-content: center;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        object-position: center;
+    }
+
+    .title_container {
+        position: absolute;
+        height: 100%;
+        width: 70%;
+        top: 0;
+        color: $white;
+        font-size: $very_big_title;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        line-height: 10rem;
+        text-align: center;
+
+        .title {
+            margin-bottom: 6rem;
+        }
+    }
+
+   
+
+    .searchbar_container {
+        width: 100%;
+        height: 20rem;
+        position: absolute;
+        bottom: -10rem;
+        display: flex;
+        justify-content: center;
+
+        .searchbar {
+            height: calc(100% - 6rem);
+            width: calc(80% - 8rem);
+            background-color: $orange;
+            padding: 4rem 4rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+
+
+            .first_line {
+                width: 100%;
+                height: 8rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .more_filter_container {
+                color: midnightblue;
+                font-weight: 400;
+                display: flex;
+                align-items: end;
+                width: 100%;
+
+                mat-icon {
+                    margin-right: 1rem;
+                }
+
+                .text {
+                    text-decoration: underline;
+                }
+            }
+
+            .second_line {
+                width: 100%;
+                height: 8rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .search_button {
+                position: absolute;
+                right: -5rem;
+            }
+        }
+    }
+}
+
+mat-form-field {
+  width: 19%;
+  height: 100%;
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+    background-color: $white;
+    margin: 0;
+    height: 100%;
+  }
+
+  ::ng-deep .mat-form-field-flex {
+    margin-top: 0;
+    height: 100%;
+  }
+
+  ::ng-deep .mat-form-field-outline {
+    color: white;
+  }
+
+  ::ng-deep input.mat-input-element {
+    color: white;
+  }
+
+  ::ng-deep .mat-form-field-prefix {
+    top: 0.5em !important;
+  }
+
+  ::ng-deep input::placeholder {
+    color: $black;
+    font-size: $little_title;
+    font-weight: 500;
+  }
+
+  ::ng-deep .mat-select-placeholder {
+    color: $black;
+    font-size: $little_title;
+    font-weight: 500;
+  }
+
+  ::ng-deep .mat-select {
+    color: $black !important;
+    font-size: $little_title;
+    font-weight: 500;
+  }
+
+  ::ng-deep input {
+    color: $black !important;
+    font-size: $little_title;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,8 @@
+﻿IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Mutli-acitivité') INSERT INTO dbo.[thematic](label) VALUES('Mutli-acitivité')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Montagne') INSERT INTO dbo.[thematic](label) VALUES('Montagne')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Mer') INSERT INTO dbo.[thematic](label) VALUES('Mer')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Campagne') INSERT INTO dbo.[thematic](label) VALUES('Campagne')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Itinérant') INSERT INTO dbo.[thematic](label) VALUES('Itinérant')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='A l''étranger') INSERT INTO dbo.[thematic](label) VALUES('A l''étranger')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Linguistique') INSERT INTO dbo.[thematic](label) VALUES('Linguistique')
+IF NOT EXISTS(SELECT 1 FROM dbo.[thematic] WHERE label='Artistique') INSERT INTO dbo.[thematic](label) VALUES('Artistique')

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="6e28c27c-85e8-41f7-9b93-d32a3708e548" ChangeDateTime="02/17/2021 15:12:56">
+    <Property Name="ElementName" Value="[dbo].[structure].[name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[structure]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="siret" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b8109f1d-2341-4991-ad9c-2d4f978be2d1" ChangeDateTime="03/04/2021 18:42:26">
+    <Property Name="ElementName" Value="[dbo].[countries].[fr_name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[countries]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="nom_fr_fr" />
+  </Operation>
+</Operations>

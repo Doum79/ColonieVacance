@@ -1,0 +1,56 @@
+﻿@import '../../shared/styles/variables.scss';
+
+.menu_container{
+    height: 7rem;
+    width: calc(100% - 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem 0 2rem;
+    background-color: $white;
+    border-bottom: 0.1rem solid $light_gray;
+
+    .left_part{
+        width: 70%;
+        height: calc(100% - 2rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .item_container{
+            height: 100%;
+            display: flex;
+            margin: 0 3rem 0 3rem;
+            position: relative;
+            justify-content: center;
+            cursor: pointer;
+
+            .title{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1;
+                font-weight: 500;
+            }
+
+            img{
+                height: 100%;
+                position: absolute;
+            }
+        }
+
+        
+    }
+
+    .right_part{
+        width: 30%;
+        display: flex;
+        justify-content: flex-end;
+
+        .mat-raised-button{
+            color: $white;
+            margin-left: 2rem;
+        }
+    }
+}

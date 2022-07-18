@@ -1,0 +1,30 @@
+﻿<div class="header_container">
+    <div class="header_home_container">
+        <div routerLink="/home" class="img_container">
+            <img src="../../assets/logos/WeColo.png" />
+        </div>
+    </div>
+
+    <ng-container *ngIf="currentUser == null">
+        <div class="btn_container">
+            <button mat-raised-button (click)="register()" class="fat_button" type="button">
+                S'INSCRIRE
+            </button>
+            <button mat-raised-button color="accent" (click)="logIn()" class="fat_button" type="button">
+                SE CONNECTER
+            </button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentUser != null">
+        <div class="header_btn_container">
+            <mat-icon class="cursor_pointer" routerLink="/account">account_circle</mat-icon>
+            <mat-icon class="cursor_pointer" (click)="logOut()">exit_to_app</mat-icon>
+        </div>
+    </ng-container>
+</div>
+
+<menu (currentUserParent)="refreshUserConnected($event)" [inputCurrentUser]="currentUser"></menu>
+
+
+

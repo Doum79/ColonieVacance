@@ -1,0 +1,2 @@
+﻿IF NOT EXISTS(SELECT 1 FROM dbo.[structure] WHERE email='structure1@str.fr') INSERT INTO dbo.[structure](email, [password], profil) VALUES('structure1@str.fr','3pDfePFv6eUM0NzXHUi+5j7YHNdcUKxwlE+W51pUbdR6LgU3Gz7DKdudNFOsLTqzj+mdCXWzlSgUGRUvHKi4vg==','STRUCTURE')
+IF NOT EXISTS(SELECT 1 FROM dbo.[structure] WHERE email='structure2@str.fr') INSERT INTO dbo.[structure](email, [password], profil) VALUES('structure2@str.fr','3pDfePFv6eUM0NzXHUi+5j7YHNdcUKxwlE+W51pUbdR6LgU3Gz7DKdudNFOsLTqzj+mdCXWzlSgUGRUvHKi4vg==','STRUCTURE')

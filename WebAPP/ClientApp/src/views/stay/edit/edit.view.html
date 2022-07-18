@@ -1,0 +1,412 @@
+﻿<header> </header>
+
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="firstStepGroup">
+        <ng-template matStepLabel>Etape 1</ng-template>
+
+        <form>
+            <!-- [formGroup]="firstStepGroup" -->
+            <div class="title">
+                Informations du jour
+                <img src="../../../assets/icons/passports.png" />
+                <img src="../../../assets/icons/hot-air-balloon.png">
+            </div>
+
+            <div class="line_with_two">
+                <mat-form-field appearance="outline">
+                    <mat-label>Un Titre</mat-label>
+                    <input matInput placeholder="Un title" [(ngModel)]="stay.title"
+                        [ngModelOptions]="{standalone: true}">
+                    <!-- formControlName="title" -->
+                </mat-form-field>
+
+                <div class="form_field_split_two">
+                    <div class="first">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Age min.</mat-label>
+                            <input matInput type="number" placeholder="Age min." [(ngModel)]="stay.minYear"
+                                [ngModelOptions]="{standalone: true}">
+                            <!-- formControlName="minYear" -->
+                        </mat-form-field>
+                    </div>
+
+                    <div class="last">
+                        <mat-form-field appearance="outline" class="end">
+                            <mat-label>Age max.</mat-label>
+                            <input matInput type="number" placeholder="Age max." [(ngModel)]="stay.maxYear"
+                                [ngModelOptions]="{standalone: true}">
+                            <!-- formControlName="maxYear" -->
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line_with_one">
+                <mat-form-field appearance="outline">
+                    <mat-label>Un Résumé</mat-label>
+                    <textarea #abstractInput matInput placeholder="Un Résumé" [(ngModel)]="stay.abstract" rows="5"
+                        [ngModelOptions]="{standalone: true}" maxlength="160"></textarea>
+                    <!-- formControlName="abstract" -->
+                    <mat-hint align="end">{{abstractInput.value.length}} / 160</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="line_with_one">
+                <mat-form-field appearance="outline">
+                    <mat-label>Une Description</mat-label>
+                    <textarea #descriptionInput matInput placeholder="Une Description" rows="10"
+                        [(ngModel)]="stay.description" [ngModelOptions]="{standalone: true}" maxlength="500"></textarea>
+                    <!-- formControlName="description" -->
+                    <mat-hint align="end">{{descriptionInput.value.length}} / 500</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="title">Les + du séjours</div>
+
+            <div class="subtitle">Photos</div>
+            <div class="pictures_container">
+                <ng-container *ngFor="let picture of base64List; let i = index">
+                    <div class="img_container">
+                        <img [src]="picture.url" />
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="base64List.length < 7">
+                    <div class="add_picture_btn" (click)="imgInput.click()">
+                        <mat-icon>add</mat-icon>
+                        <div>Ajouter</div>
+                    </div>
+                </ng-container>
+
+            </div>
+
+            <div class="line_with_two">
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Thématiques</mat-label>
+                        <input matInput placeholder="Thématiques" #thematicInput [matAutocomplete]="thematicAuto"
+                            [formControl]="thematicCtrl">
+                        <mat-autocomplete autoActiveFirstOption #thematicAuto="matAutocomplete"
+                            (optionSelected)="selectedThematic($event.option.value)">
+                            <mat-option *ngFor="let thematic of filteredThematics | async" [value]="thematic">
+                                {{thematic.label}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+
+                    <div class="results_container">
+                        <ng-container *ngIf="stay.thematicsList.length > 0; else elseThematics">
+                            <ng-container *ngFor="let stayThematic of stay.thematicsList">
+                                <div class="result">
+                                    <mat-icon (click)="removeThematic(stayThematic)">clear</mat-icon>
+                                    {{stayThematic.thematic.label}}
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #elseThematics>
+                            <ng-container *ngIf="displayFormInvalid">
+                                <div class="data_empty">Aucune thématique sélectionnée.</div>
+                            </ng-container>
+                        </ng-template>
+                    </div>
+                </div>
+
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Activités</mat-label>
+                        <input matInput placeholder="Activités" #activityInput [matAutocomplete]="activityAuto"
+                            [formControl]="activityCtrl">
+                        <mat-autocomplete autoActiveFirstOption #activityAuto="matAutocomplete"
+                            (optionSelected)="selectedActivity($event.option.value)">
+                            <mat-option *ngFor="let activity of filteredActivities | async" [value]="activity">
+                                {{activity.label}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div class="results_container">
+                        <ng-container *ngIf="stay.activitiesList.length > 0; else elseActivities">
+                            <ng-container *ngFor="let stayActivity of stay.activitiesList">
+                                <div class="result">
+                                    <mat-icon (click)="removeActivity(stayActivity)">clear</mat-icon>
+                                    {{stayActivity.activity.label}}
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #elseActivities>
+                            <ng-container *ngIf="displayFormInvalid">
+                                <div class="data_empty">Aucune activité sélectionnée.</div>
+                            </ng-container>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line_with_one">
+                <mat-form-field appearance="outline">
+                    <mat-label>Programme</mat-label>
+                    <textarea #programInput matInput placeholder="Programme" [(ngModel)]="stay.program" rows="5"
+                        [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="line_with_two">
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Equipe d'encadrement</mat-label>
+                        <input matInput #partnerInput placeholder="Equipe d'encadrement" [(ngModel)]="partner"
+                            [ngModelOptions]="{standalone: true}" (keypress)="getKeyEvent($event, 'TEAM')">
+                        <button mat-button matSuffix mat-icon-button type="button" (click)="addPartner()">
+                            <mat-icon>person_add_alt_1</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <ng-container *ngIf="stay.partnersList.length > 0">
+                        <div class="results_container">
+                            <ng-container *ngFor="let stayPartner of stay.partnersList">
+                                <div class="result">
+                                    <mat-icon (click)="removePartner(stayPartner)">clear</mat-icon>
+                                    {{stayPartner.partnerName}}
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Hébergement</mat-label>
+                    <textarea matInput placeholder="Hébergement" [(ngModel)]="stay.housing" rows="5"
+                        [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="title">Equipement</div>
+
+            <div class="line_with_two">
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Inclus</mat-label>
+                        <input matInput #equipmentIncludedInput placeholder="Inclus" [(ngModel)]="equipmentIncluded"
+                            [ngModelOptions]="{standalone: true}" (keypress)="getKeyEvent($event, 'EQUIPMENTINCLUDED')">
+                        <button mat-button matSuffix mat-icon-button type="button" (click)="addEquipment(true)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <ng-container *ngIf="stay.equipmentsList.length > 0">
+                        <div class="results_container">
+                            <ng-container *ngFor="let stayEquipment of stay.equipmentsList">
+                                <ng-container *ngIf="stayEquipment.isIncluded == true">
+                                    <div class="result">
+                                        <mat-icon (click)="removeEquimpent(stayEquipment)">clear</mat-icon>
+                                        {{stayEquipment.label}}
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Non Inclus</mat-label>
+                        <input matInput #includedInput placeholder="Non Inclus" [(ngModel)]="equipmentNotIncluded"
+                            [ngModelOptions]="{standalone: true}"
+                            (keypress)="getKeyEvent($event, 'EQUIPMENTNOTINCLUDED')">
+                        <button mat-button matSuffix mat-icon-button type="button" (click)="addEquipment(false)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <ng-container *ngIf="stay.equipmentsList.length > 0">
+                        <div class="results_container">
+                            <ng-container *ngFor="let stayEquipment of stay.equipmentsList">
+                                <ng-container *ngIf="stayEquipment.isIncluded == false">
+                                    <div class="result">
+                                        <mat-icon (click)="removeEquimpent(stayEquipment)">clear</mat-icon>
+                                        {{stayEquipment.label}}
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="title">
+                Accès et location
+                <img src="../../../assets/icons/car.png" />
+            </div>
+
+            <div class="line_with_two">
+                <div class="orientation_column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Accés</mat-label>
+                        <input matInput #accessInput placeholder="Accés" [(ngModel)]="access"
+                            [ngModelOptions]="{standalone: true}" (keypress)="getKeyEvent($event, 'ACCESS')">
+                        <button mat-button matSuffix mat-icon-button type="button" (click)="addAccess()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <ng-container *ngIf="stay.accessesList.length > 0">
+                        <div class="results_container">
+                            <ng-container *ngFor="let stayAccess of stay.accessesList">
+                                <div class="result">
+                                    <mat-icon (click)="removeAccess(stayAccess)">clear</mat-icon>
+                                    {{stayAccess.label}}
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="orientation_column">
+                    <address-autocomplete [placeHolder]="'Adresse'" (locationChange)="changeStayAddress($event)"
+                        [style]="''">
+                    </address-autocomplete>
+
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Téléphone</mat-label>
+                        <input [(ngModel)]="stay.phone" matInput placeholder="Téléphone" type="number"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength="10" [ngModelOptions]="{standalone: true}">
+                        <!-- formControlName="phone" -->
+                        <mat-icon matSuffix>call</mat-icon>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="line_with_one">
+                <mat-form-field appearance="outline">
+                    <mat-label>Informations supplémentaires</mat-label>
+                    <textarea matInput placeholder="Informations supplémentaires" [(ngModel)]="stay.moreInformations"
+                        rows="5" [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="line_button">
+                <button mat-raised-button matStepperNext color="accent" style="color: white" type="button">
+                    Suivant
+                    <mat-icon matSuffix>arrow_right_alt</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step>
+        <!-- [stepControl]="secondStepGroup" -->
+        <ng-template matStepLabel>Etape 2</ng-template>
+        <form>
+            <!-- [formGroup]="secondStepGroup" -->
+
+            <div class="title">
+                Tarifs & Réservations
+            </div>
+
+            <ng-container *ngFor="let period of stay.furtherInformationsList; let i = index">
+                <div class="line_with_six">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date de départ</mat-label>
+                        <input matInput [matDatepicker]="startPicker" placeholder="Date de départ"
+                            [(ngModel)]="period.startDate" [ngModelOptions]="{standalone: true}">
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Date de fin</mat-label>
+                        <input matInput [matDatepicker]="endPicker" placeholder="Date de fin"
+                            [(ngModel)]="period.endDate" [ngModelOptions]="{standalone: true}">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Avec ou sans transport</mat-label>
+                        <mat-select placeholder="Avec ou sans transport" [(ngModel)]="period.withTransport"
+                            [ngModelOptions]="{standalone: true}">
+                            <mat-option value="true">Avec</mat-option>
+                            <mat-option value="false">Sans</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <address-autocomplete [placeHolder]="'Ville de départ'" [searchType]="'city'"
+                        (locationChange)="changeStartCityPeriod($event, i)"></address-autocomplete>
+
+                    <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Prix</mat-label>
+                        <input matInput type="number" placeholder="Prix" [(ngModel)]="period.price"
+                            [ngModelOptions]="{standalone: true}">
+                        <mat-icon matSuffix>euro_symbol</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Lien de redirection</mat-label>
+                        <input matInput placeholder="Lien de redirection" [(ngModel)]="period.redirectionLink"
+                            [ngModelOptions]="{standalone: true}">
+                        <mat-icon matSuffix>link</mat-icon>
+                    </mat-form-field>
+
+                    <button type="button" mat-icon-button color="warn" (click)="deletePeriod(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+            <div class="line_button" style="width: 100%; margin-bottom: 5rem;">
+                <button type="button" mat-mini-fab color="primary" (click)="addStayPeriod()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+            <div class="line_button" style="width: 100%; justify-content: space-between;">
+                <button mat-raised-button matStepperPrevious color="accent" style="color: white" type="button">
+                    <mat-icon matSuffix>arrow_back</mat-icon>
+                    Précédent
+                </button>
+
+                <button mat-raised-button matStepperNext color="accent" style="color: white" type="button"
+                    (click)="displayCard = true;">
+                    Suivant
+                    <mat-icon matSuffix>arrow_forward</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Etape 3</ng-template>
+        <ng-container *ngIf="displayCard">
+            <form>
+                <stay-card [stay]="stay" [picture]="base64List[0].url" [redirection]="false"></stay-card>
+            </form>
+        </ng-container>
+
+        <div class="line_button" style="width: 100%; justify-content: space-between;">
+            <button mat-raised-button matStepperPrevious color="accent" style="color: white" type="button">
+                <mat-icon matSuffix>arrow_back</mat-icon>
+                Précédent
+            </button>
+
+            <button mat-raised-button color="accent" type="button" (click)="addStay()"
+            style="
+                    color: white;
+                    width: calc(100% - 46rem);
+            justify-content: space-between;
+            display: flex;
+            margin-top: 5rem;
+            margin-left: 23rem;">
+                Ajouter
+                <mat-icon matSuffix>check_circle_outline</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>
+
+<footer></footer>
+<loader *ngIf="isLoading"></loader>
+
+<input #imgInput class="accessibility_hidden" type="file" (change)="addPicture($event)"
+    accept=".jpg,.jpeg,.JPG,.JPEG,.png,.PNG, .webp">

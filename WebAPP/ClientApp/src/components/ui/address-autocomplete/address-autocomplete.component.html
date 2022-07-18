@@ -1,0 +1,23 @@
+﻿<mat-form-field appearance="outline" [ngClass]="{'mat-form-field_searchbar': style == 'searchbar'}">
+    <mat-label *ngIf="style != 'searchbar'">{{placeHolder}}</mat-label>
+
+    <input matInput type="text" [matAutocomplete]="auto" [formControl]="inputFieldFormControl"
+        [placeholder]="placeHolder" [required]="required"/>
+
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+        <mat-option *ngFor="let option of searchOptions | async" [value]="checkValue(option)"
+            (onSelectionChange)="optionSelectionChange(option, $event)" [matTooltip]="option.fullAddress"
+            matTooltipShowDelay="500">
+            <span class="mat-body">
+                <ng-container *ngIf="searchType == 'city'; else elseLabel">
+                    {{option.data.city}}, {{option.data.state}}, {{option.data.country}}
+                </ng-container>
+                <ng-template #elseLabel>
+                    {{option.data.housenumber}} {{option.data.street}}, {{option.data.postcode}} {{option.data.city}}, {{option.data.country}}
+                </ng-template>
+            </span>
+        </mat-option>
+    </mat-autocomplete>
+
+    <mat-icon matSuffix>place</mat-icon>
+</mat-form-field>

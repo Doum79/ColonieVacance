@@ -1,0 +1,53 @@
+﻿@import '../../shared/styles/variables.scss';
+
+.header_container {
+    background-color: $blue;
+    width: calc(100% - 4rem);
+    padding: 2rem;
+    height: 7rem;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header_home_container {
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+
+        .img_container{
+            height: 7rem;
+            padding: 1rem 0 1rem 0;
+            margin-left: 20rem;
+            
+            img{
+                height: 100%;
+            }
+        }
+
+        mat-icon{
+            margin-right: 2rem;
+        }
+    }
+
+    .btn_container {
+        display: flex;
+        justify-content: flex-end;
+        width: 50%;
+        
+        button{
+            color: $white;
+        }
+
+        button:first-child{
+            margin-right: 2rem;
+            color: $gray;
+        }
+    }
+
+    .header_btn_container {
+        width: 10rem;
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,162 @@
+﻿<header></header>
+<searchbar imageUrl="../../assets/pictures/home.png" title="Comparez et trouvez le séjour idéal pour votre enfant"
+    heightSize="calc(100vh - 15rem)">
+</searchbar>
+
+<ng-container *ngIf="popularStays.length > 0">
+    <div class="tags_stay_container" style="background-color: rgba(216, 216, 216, 0.12)">
+        <div class="container">
+            <div class="title_container">
+                <div class="title">LES SEJOURS LES PLUS POPULAIRES</div>
+                <button mat-raised-button (click)="navigate('/stays-list', popularStays)">Tout afficher</button>
+            </div>
+
+            <div class="stay_container">
+                <ng-container *ngFor="let stay of popularStays; let i = index">
+                    <ng-container *ngIf="i <= 3">
+                        <stay-card [stay]="stay" [picture]="stay.picturesList[0].pictureUrl" [redirection]="true"></stay-card>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="stays">
+    <div class="maps_container">
+        <div class="title_container">
+            EXPLOREZ TOUS LES SEJOURS DISPONIBLES
+        </div>
+
+        <div class="maps_wrapper">
+            <map [inputDisplayStays]="stays" [inputToFocus]="'USER'" [inputHeight]="80"></map>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="lastMinutesStays.length > 0">
+    <div class="tags_stay_container">
+        <div class="container">
+            <div class="title_container">
+                <div class="title">LES BONS PLANS DU MOMENT</div>
+                <button mat-raised-button (click)="navigate('/stays-list', lastMinutesStays)">Tout afficher</button>
+            </div>
+
+            <div class="stay_container">
+                <stay-card [stay]="lastMinutesStays[0]" [redirection]="true"></stay-card>
+                <stay-card *ngIf="lastMinutesStays.length > 1" [stay]="popularStays[1]" [redirection]="true"></stay-card>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="lastMinutesStays.length > 0">
+    <div class="tags_stay_container" style="background-color:rgba(15, 23, 48, 0.16)">
+        <div class="container">
+            <div class="title_container">
+                <div class="title">LES SEJOURS DE DERNIERES MINUTES</div>
+                <button mat-raised-button (click)="navigate('/stays-list', lastMinutesStays)">Tout afficher</button>
+            </div>
+
+            <div class="stay_container">
+                <stay-card [stay]="lastMinutesStays[0]" [redirection]="true"></stay-card>
+                <stay-card *ngIf="lastMinutesStays.length > 1" [stay]="popularStays[1]" [redirection]="true"></stay-card>
+                <stay-card *ngIf="lastMinutesStays.length > 2" [stay]="popularStays[2]" [redirection]="true"></stay-card>
+                <stay-card *ngIf="lastMinutesStays.length > 3" [stay]="popularStays[3]" [redirection]="true"></stay-card>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+
+
+<!-- <ng-container *ngIf="currentUser != null && currentUser.profil == 'STRUCTURE'">
+    <div class="add_container">
+        <ng-container *ngIf="!activeRemove">
+            <button mat-raised-button color="primary" (click)="openStay()">Ajouter un séjour</button>
+            <button mat-raised-button color="warn" (click)="removeSelection()">Supprimer des séjours</button>
+
+        </ng-container>
+        <ng-container *ngIf="activeRemove">
+            <button mat-raised-button (click)="removeSelection()" color="warn">Annuler</button>
+            <button mat-raised-button (click)="deleteStaysSelection()">Supprimer
+                ({{removeStaysList.length}})</button>
+        </ng-container>
+    </div>
+</ng-container> -->
+
+<!-- <div class="filter_container">
+    <mat-form-field>
+        <mat-label>Mots-clés</mat-label>
+        <mat-chip-list #keywordList aria-label="Rechercher...">
+            <mat-chip *ngFor="let keyword of keywords" selectable removable (removed)="remove(keyword)">
+                {{keyword}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Mot-clé..." #keywordInput [formControl]="keywordCtrl" [matChipInputFor]="keywordList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="search()">
+        Rechercher
+        <mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-raised-button (click)="openMap()">
+        <mat-icon>near_me</mat-icon>
+    </button>
+</div> -->
+
+<!-- <div class="result_search_container">
+    <div class="result">
+        {{staysFiltered.length}} {{staysFiltered.length > 1 ? 'résultats trouvés' : 'résultat trouvé'}} 
+    </div>
+</div> -->
+
+<!-- <div class="home_container scroll">
+    <ng-container *ngIf="currentUser == null || currentUser.profil == 'PARENT'">
+        <div class="header_container">
+            <div class="header_title" (click)="switchCategory('STAYS')"
+                [ngClass]="{'stays_title--selected': selectedCategory == 'STAYS'}">
+                Séjours
+            </div>
+            <div class="header_title" (click)="switchCategory('STRUCTURES')"
+                [ngClass]="{'structures_title--selected': selectedCategory == 'STRUCTURES'}">
+                Structures
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="selectedCategory == 'STAYS'" class="stays_list">
+        <ng-container *ngFor="let stay of staysFiltered; let i = index;">
+            <div class="stay_container" (click)="addStayToRemove(stay)"
+                [ngClass]="{'stay_no_margin_right': i%5 == 0, 'stay_no_margin_left': i == 0 || (i+1)%6 == 0, 'animation_shaking': activeRemove, 'removeStyle': checkStayRemoveSelected(stay)}">
+                <div class="title">{{stay.name}}</div>
+                <div class="description">{{stay.abstract}}</div>
+                <div class="date">{{stay.startDate | date:'dd/MM/yyyy'}} - {{stay.endDate | date:'dd/MM/yyyy'}}</div>
+                <div class="open" (click)="openStay(stay)">Voir la suite ...</div>
+                <mat-icon *ngIf="!inStaysFavoriteList(stay.id)" (click)="addStayToFavorite(stay.id)">favorite_border
+                </mat-icon>
+                <mat-icon *ngIf="inStaysFavoriteList(stay.id)" (click)="removeStayToFavorite(stay.id)">favorite
+                </mat-icon>
+            </div>
+        </ng-container>
+    </div>
+
+    <div *ngIf="selectedCategory == 'STRUCTURES'" class="structures_list">
+        <ng-container *ngFor="let structure of structures; let i = index;">
+            <div class="structures_container"
+                [ngClass]="{'stay_no_margin_right': i%5 == 0, 'stay_no_margin_left': i == 0 || (i+1)%6 == 0}">
+                <div class="title">{{structure.email}}</div>
+                <mat-icon *ngIf="!inStructuresFavoriteList(structure.id)"
+                    (click)="addStructureToFavorite(structure.id)">favorite_border</mat-icon>
+                <mat-icon *ngIf="inStructuresFavoriteList(structure.id)"
+                    (click)="removeStructureToFavorite(structure.id)">favorite</mat-icon>
+            </div>
+        </ng-container>
+    </div>
+</div> -->
+<footer></footer>
+<loader *ngIf="isLoading"></loader>

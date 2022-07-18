@@ -1,0 +1,272 @@
+﻿@import "../../shared/styles/variables.scss";
+
+header{
+  z-index: 2;
+  width: 100%;
+}
+
+
+.tags_stay_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0 5rem 0;
+  margin-top: 2rem;
+
+  .container{
+    width: 80%;
+
+    .title_container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 5rem;
+      color: $blue;
+
+      .title{
+        font-size: $big_title;
+      }
+    }
+
+    .stay_container{
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 3rem;
+    }
+  }
+}
+
+.maps_container{
+  width: 100%;
+  
+  .title_container{
+    margin: 5rem 0 3rem 0;
+    font-size: $big_title;
+    color: $blue;
+    height: 5rem;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .maps_wrapper{
+    width: calc(100% - 20rem);
+    height: 90rem;
+    padding: 5rem 10rem 5rem 10rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.add_container {
+  padding: 3rem;
+  height: 5rem;
+
+  button {
+    margin-right: 2rem;
+
+    &:last-child {
+      margin-right: 2rem !important;
+    }
+  }
+}
+
+.filter_container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $normal_text;
+
+  mat-form-field {
+    width: 50%;
+    margin-right: 2rem;
+  }
+
+  button {
+    height: 3.5rem;
+    margin-right: 2rem;
+    width: 15rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.result_search_container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+
+  .result {
+    width: calc(50% + 34rem);
+  }
+}
+
+.home_container {
+  width: calc(100% - 4rem);
+  height: calc(100vh - 19rem);
+  padding: 2rem;
+
+  .header_container {
+    display: flex;
+
+    .header_title {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 0.2rem solid $light_gray;
+      cursor: pointer;
+    }
+
+    .stays_title--selected {
+      border-bottom: 0.2rem solid $orange;
+      font-weight: bold;
+    }
+
+    .structures_title--selected {
+      border-bottom: 0.2rem solid $blue;
+      font-weight: bold;
+    }
+  }
+
+  .stays_list {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .stay_container {
+      background-color: $orange;
+      margin-bottom: 2rem;
+      margin-right: 1rem;
+      margin-left: 1rem;
+      width: calc(20% - 6rem);
+      padding: 2rem;
+      border-radius: 1rem;
+      font-size: $normal_text;
+      position: relative;
+
+      .title {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .description {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .date {
+        text-align: center;
+        font-weight: bold;
+      }
+
+      mat-icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        color: $white;
+      }
+
+      .open {
+        font-size: $normal_text;
+        background-color: $orange;
+        border-radius: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .open:hover {
+        filter: brightness(50%);
+      }
+    }
+  }
+
+  .structures_list {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .structures_container {
+      background-color: $blue;
+      margin-bottom: 2rem;
+      margin-right: 1rem;
+      margin-left: 1rem;
+      width: calc(20% - 6rem);
+      padding: 2rem;
+      border-radius: 1rem;
+      font-size: $normal_text;
+      position: relative;
+
+      .title {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .description {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .date {
+        text-align: center;
+        font-weight: bold;
+      }
+
+      mat-icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        color: $white;
+      }
+
+      .open {
+        font-size: $normal_text;
+        background-color: $orange;
+        border-radius: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .open:hover {
+        filter: brightness(50%);
+      }
+    }
+  }
+}

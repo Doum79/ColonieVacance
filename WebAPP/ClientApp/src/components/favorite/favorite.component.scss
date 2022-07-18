@@ -1,0 +1,146 @@
+﻿@import '../../shared/styles/variables.scss';
+
+.favorites_container {
+    width: calc(100% - 4rem);
+    height: calc(100vh - 19rem);
+    padding: 2rem;
+
+    .favorites_header_container {
+        display: flex;
+
+        .header_title {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 0.2rem solid $light_gray;
+            cursor: pointer;
+        }
+
+        .stays_title--selected {
+            border-bottom: 0.2rem solid $orange;
+            font-weight: bold;
+        }
+
+        .structures_title--selected {
+            border-bottom: 0.2rem solid $blue;
+            font-weight: bold;
+        }
+    }
+
+    .favorite_list_container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 2rem;
+
+        .stay_container {
+            background-color: $orange;
+            margin-bottom: 2rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+            width: calc(20% - 6rem);
+            padding: 2rem;
+            border-radius: 1rem;
+            font-size: $normal_text;
+            position: relative;
+
+            .title {
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .description {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .date {
+                text-align: center;
+                font-weight: bold;
+            }
+
+            mat-icon {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                cursor: pointer;
+                color: $white;
+            }
+
+            .open {
+                font-size: $normal_text;
+                background-color: $orange;
+                border-radius: 1rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .open:hover {
+                filter: brightness(50%);
+            }
+        }
+    }
+
+    .favorite_structures_list {
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .favorite_structures_container {
+            background-color: $blue;
+            margin-bottom: 2rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+            width: calc(20% - 6rem);
+            padding: 2rem;
+            border-radius: 1rem;
+            font-size: $normal_text;
+            position: relative;
+
+            .title {
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .description {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .date {
+                text-align: center;
+                font-weight: bold;
+            }
+
+            mat-icon {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                cursor: pointer;
+                color: $white;
+            }
+
+            .open {
+                font-size: $normal_text;
+                background-color: $orange;
+                border-radius: 1rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .open:hover {
+                filter: brightness(50%);
+            }
+        }
+    }
+}

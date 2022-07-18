@@ -1,0 +1,31 @@
+﻿
+<div class="item_container">
+    
+        <button mat-icon-button *ngIf="currentUser == null || currentUser.profil == 'USER'" class="example-icon favorite-icon"  aria-label="Example icon-button with heart icon" (click)=" popFavoris()" >
+            <mat-icon>favorite </mat-icon>
+        </button>
+      
+        <!--matBadge-->
+        
+       
+</div>
+<div class="container" (click)="showStay()">
+    <div class="left_part">
+        <div class="title">{{inputStay.title}}</div>
+        <div class="location">
+            <mat-icon color="accent">location_on</mat-icon>
+            {{inputStay.city}}, {{inputStay.country}}
+        </div>
+        <div class="abstract">{{inputStay.abstract}}</div>
+    </div>
+
+    <div class="right_part">
+
+        <img [src]="inputStay.picturesList[0].pictureUrl" />
+    </div>
+</div>
+<!--div class="data_container">
+    <div class="top_container">
+        A partir de {{minimumPrice()}} € / personne
+    </div>
+    </div>-->

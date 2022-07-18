@@ -1,0 +1,56 @@
+﻿<header></header>
+
+<div class="account_container">
+    <div class="informations_wrapper">
+        
+        <div *ngIf="currentUser.profil == 'PARENT'" class="information_block">
+            <div class="information_title">Civilité :&nbsp;</div>
+            <div *ngIf="currentUser.gender != null" class="information_label">{{currentUser.gender ? 'Homme' : 'Femme'}}</div>
+            <div *ngIf="currentUser.gender == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div *ngIf="currentUser.profil == 'PARENT'" class="information_block">
+            <div class="information_title">Prénom :&nbsp;</div>
+            <div *ngIf="currentUser.firstName != null" class="information_label">{{currentUser.firstName}}</div>
+            <div *ngIf="currentUser.firstName == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div *ngIf="currentUser.profil == 'PARENT'" class="information_block">
+            <div class="information_title">Nom :&nbsp;</div>
+            <div *ngIf="currentUser.lastName != null" class="information_label">{{currentUser.lastName}}</div>
+            <div *ngIf="currentUser.lastName == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div class="information_block">
+            <div class="information_title">Email :&nbsp;</div>
+            <div class="information_label">{{currentUser.email}}</div>
+        </div>
+
+        <div class="information_block">
+            <div class="information_title">Adresse :&nbsp;</div>
+            <div *ngIf="currentUser.street != null" class="information_label">{{currentUser.street}}</div>
+            <div *ngIf="currentUser.street == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div class="information_block">
+            <div class="information_title">Ville :&nbsp;</div>
+            <div *ngIf="currentUser.city != null" class="information_label">{{currentUser.city}}</div>
+            <div *ngIf="currentUser.city == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div class="information_block">
+            <div class="information_title">Code postal :&nbsp;</div>
+            <div *ngIf="currentUser.zipCode != null" class="information_label">{{currentUser.zipCode}}</div>
+            <div *ngIf="currentUser.zipCode == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <div class="information_block">
+            <div class="information_title">Téléphone mobile :&nbsp;</div>
+            <div *ngIf="currentUser.phoneNumber != null" class="information_label">+33 {{currentUser.phoneNumber}}</div>
+            <div *ngIf="currentUser.phoneNumber == null" class="information_label data_empty">Information non renseigné</div>
+        </div>
+
+        <button *ngIf="currentUser.profil == 'PARENT'" mat-raised-button (click)="openDialogCard('UpdateParent')" color="accent">Modifier</button>
+        <button *ngIf="currentUser.profil == 'STRUCTURE'" mat-raised-button (click)="openDialogCard('UpdateStructure')" color="accent">Modifier</button>
+    </div>
+</div>

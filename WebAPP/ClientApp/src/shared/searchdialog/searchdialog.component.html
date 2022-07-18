@@ -1,0 +1,54 @@
+<h2 mat-dialog-title> Rechercher vos plan de sejour </h2>
+
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">date_range</mat-icon>
+                Mois Depart
+            </ng-template>
+
+            <mat-selection-list #names [(ngModel)]="isSelected">
+                <mat-list-option *ngFor="let mois of typesOfMois" [value]="mois">
+                    {{mois.label}}
+                </mat-list-option>
+              </mat-selection-list>
+        </mat-tab>
+       
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>airplanemode_active</mat-icon>
+                Periode de Vacances
+            </ng-template>
+            <mat-nav-list>
+                <mat-selection-list #shoes [(ngModel)]="isSelected">
+                    <mat-list-option *ngFor="let vacances of typesOfvanc" [value]="vacances">
+                        {{vacances.label}}
+                    </mat-list-option>
+                </mat-selection-list>
+
+                <p>
+                    Options selectionnees : {{shoes.selectedOptions.selected.length}}
+                </p>
+            </mat-nav-list>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>calendar_today</mat-icon>
+                Calendrier
+            </ng-template>
+            <mat-card class="demo-inline-calendar-card" >
+                <mat-calendar [(selected)]="isSelected"></mat-calendar>
+            </mat-card>
+            <!--<p>Selected date: {{selected}}</p>-->
+        </mat-tab>
+
+    </mat-tab-group>
+
+<mat-dialog-actions >
+    <button mat-button [mat-dialog-close]="isSelected"  cdkFocusInitial style="background: orange;"> Valider</button>
+    <!--<button mat-button mat-dialog-close ="false" style="background: orange;"> Annuler</button>-->
+</mat-dialog-actions>
+
+
+<!--<app-searchdialog></app-searchdialog>-->
